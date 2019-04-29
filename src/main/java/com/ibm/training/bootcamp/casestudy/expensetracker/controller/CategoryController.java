@@ -38,7 +38,7 @@ public class CategoryController {
 		
 		try {
 		
-			List<Category> categories = null;
+			List<Category> categories;
 			
 			if(StringUtils.isAllBlank(categoryName)) {
 				categories = categoryService.findAllCategory();
@@ -60,9 +60,10 @@ public class CategoryController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addCategory(Category category) {
-		
+			System.out.println("controller - adding record");
 		try {
 			categoryService.add(category);
+			System.out.println("controller - adding record2");
 			String result = "Category saved : "
 					+ category.getCategoryId() + ""
 					+ category.getCategoryName() + ""
@@ -72,6 +73,7 @@ public class CategoryController {
 			return Response.status(201).entity(result).build();
 			
 		}catch(Exception e) {
+			System.out.println("controller - error adding record");
 			throw new WebApplicationException(e);
 		}
 	}

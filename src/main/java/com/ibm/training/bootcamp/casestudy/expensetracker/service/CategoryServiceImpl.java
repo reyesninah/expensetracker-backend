@@ -19,12 +19,30 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void add(Category category) {
-		if(validate(category)) {
+		System.out.println("inside add");
+		System.out.println(category.getCategoryName());
+//		if(validate(category) == false) {
+//			System.out.println("try");
+//			categoryDao.add(category);
+//			
+//		} else {
+//			System.out.println("ayaw add");
+//			throw new IllegalArgumentException 
+//			("Field CategoryName cannot be blank");
+//					
+//		}
+//		try {
+//			if(categoryName)
+//			categoryDao.add(category);
+//			
+//		}catch(Exception e) {
+//			throw new IllegalArgumentException ("Field CategoryName cannot be blank");
+//		}
+//		if(category.getCategoryId() != null && category.getCategoryId() >= 0) {
+//			categoryDao.update(category);
+//		} else {
 			categoryDao.add(category);
-		} else {
-			throw new IllegalArgumentException 
-			("Field CategoryName cannot be blank");
-		}
+		//}
 	}
 	
 	@Override
@@ -39,17 +57,20 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void upsert(Category category) {
-		if(validate(category)) {
-			if(category.getCategoryId() != null && 
-					category.getCategoryId()>=0) {
-				categoryDao.update(category);
-				
-			}else {
-				categoryDao.add(category);
-			}
-		}else {
-			throw new IllegalArgumentException("Fields cannot be blank");
-		}
+//		if(validate(category)) {
+//			if(category.getCategoryName() != null )
+////					&& category.getCategoryName()>=0) 
+//			{
+//				categoryDao.update(category);
+//				
+//			}else {
+//				categoryDao.add(category);
+//			}
+//		}else {
+//			throw new IllegalArgumentException("Fields cannot be blank");
+//		}
+		
+		categoryDao.add(category);
 		
 	}
 	

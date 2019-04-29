@@ -1,26 +1,27 @@
 package com.ibm.training.bootcamp.casestudy.expensetracker.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Category {
 	
 	Long categoryId;
 	private String categoryName;
-	private double categoryBudget;
-	private Date categoryDate;
+	private double categoryBudget = 1000;
+	private LocalDate categoryDate = LocalDate.now();
 	
 	public Category() {
 		
 	}
 	
 	public Category( String categoryName,
-			double categoryBudget, Date categoryDate) {
+			double categoryBudget, LocalDate categoryDate) {
 		this(null, categoryName, categoryBudget, categoryDate);
 	}
 
 	
 	public Category(Long categoryId, String categoryName,
-			double categoryBudget, Date categoryDate) {
+			double categoryBudget, LocalDate categoryDate) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryBudget = categoryBudget;
@@ -51,11 +52,11 @@ public class Category {
 		this.categoryBudget = categoryBudget;
 	}
 
-	public Date getCategoryDate() {
+	public LocalDate getCategoryDate() {
 		return categoryDate;
 	}
 
-	public void setCategoryDate(Date categoryDate) {
+	public void setCategoryDate(LocalDate categoryDate) {
 		this.categoryDate = categoryDate;
 	}
 

@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +40,8 @@ public class CategoryDaoImpl implements CategoryDao {
 		init();
 	}
 
+	
+	
 	private void init() {
 		dataSource = new JDBCDataSource();
 		dataSource.setDatabase("jdbc:hsqldb:mem:EXPTRACKER");
@@ -48,7 +53,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 
 	private void createExpCategoryTbl() {
-		String createSql = "CREATE TABLE expCategoryTbl "
+		String createSql = "CREATE TABLE IF NOT EXISTS expCategoryTbl "
 				+ "(categoryId INTEGER IDENTITY PRIMARY KEY,"
 				+ "categoryName VARCHAR(255),"
 				+ "categoryBudget DOUBLE,"
@@ -65,17 +70,44 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 
 	private void insertInitCategory() {
-		add(new Category("Food", 5000, new Date(2019-04-12)));
-		add(new Category("Others", 900, new java.sql.Date(2019-04-13)));
-		add(new Category("Utils", 9000, new java.sql.Date(2019-04-14)));
-		add(new Category("Fare", 3500, new java.sql.Date(2019-04-15)));
+//		add(new Category("Food", 1000, new Date(2019-04-12)));
+//		add(new Category("Entertainment", 1000, new java.sql.Date(2019-04-13)));
+//		add(new Category("Utils", 1000, new java.sql.Date(2019-04-14)));
+//		add(new Category("Fare", 1000, new java.sql.Date(2019-04-15)));
+//		add(new Category("Clothing", 1000, new java.sql.Date(2019-04-15)));
+//		add(new Category("Beauty", 1000, new java.sql.Date(2019-04-15)));
+		
+//		add(new Category("Food", 1000, java.sql.Date.valueOf(2019-02-02)));
+//		add(new Category("Entertainment", 1000, Date.valueOf("2019-02-03")));
+//		add(new Category("Utils", 1000, Date.valueOf("2019-02-03")));
+//		add(new Category("Fare", 1000, Date.valueOf("2019-02-04")));
+//		add(new Category("Clothing", 1000, Date.valueOf("2019-02-05")));
+//		add(new Category("Beauty", 1000, Date.valueOf("2019-02-06")));
+//		
+		add(new Category("Food", 1000, LocalDate.of(2014, Month.FEBRUARY, 1)));
+		add(new Category("Entertainment", 1000, LocalDate.of(2014, Month.JANUARY, 1)));
+		add(new Category("Utils", 1000, LocalDate.of(2014, Month.JANUARY, 1)));
+		add(new Category("Fare", 1000, LocalDate.of(2014, Month.JANUARY, 1)));
+//		add(new Category("Clothing", 1000, LocalDate.of(2014, Month.JANUARY, 1)));
+//		add(new Category("Beauty", 1000, java.sql.Date.valueOf(LocalDate.of(2014, Month.JANUARY, 1))));
+
+//		add(new Category("Food", 1000,  Date.valueOf("2019-02-02").toLocalDate()));
+//		
+//		date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
+	
+//	private static java.sql.Date convertDate(){
+//		java.util.Date utilDate = new java.util.Date();
+//		return new java.sql.Date(utilDate.getDate());
+//	}
+	
 	@Override
 	public void add(Category category) {
-
+		System.out.println(category.getCategoryName()+ " inside add method1");
 		String insertSql = "INSERT INTO expCategoryTbl"
-				+ "(categoryName, categoryBudget, categoryDate)"
+				+ "(categoryName, categoryBudget"
+				+ ", categoryDate)"
 				+ "VALUES (?, ?, ?)";
 
 		try (Connection conn = dataSource.getConnection(); 
@@ -83,9 +115,14 @@ public class CategoryDaoImpl implements CategoryDao {
 
 			ps.setString(1, category.getCategoryName());
 			ps.setDouble(2, category.getCategoryBudget());
-			ps.setDate(3, (Date) category.getCategoryDate());
+			ps.setObject(3, java.sql.Date.valueOf(category.getCategoryDate()));
+			
+			
+//			System.out.println(category.getCategoryName());
+//			System.out.println(category.getCategoryBudget());
+//			System.out.println(category.getCategoryDate());
 			ps.executeUpdate();
-
+			System.out.println(category.getCategoryName()+ " inside add method2");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
@@ -96,17 +133,43 @@ public class CategoryDaoImpl implements CategoryDao {
 	@Override
 	public List<Category> findAllCategory() {
 
-		return findByCategory(null);
+//		return findByCategory(null);
+		List<Category> categories = new ArrayList<>();
+		
+		String sql = "SELECT categoryId, categoryName, categoryBudget,"
+				+ " categoryDate FROM expCategoryTbl";
+
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			
+			ResultSet results = ps.executeQuery();
+
+			while (results.next()) {
+				Category category = new Category(Long.valueOf
+						(results.getInt("categoryId")), 
+						results.getString("categoryName"),
+						results.getDouble("categoryBudget"),
+						results.getDate("categoryDate").toLocalDate());
+				categories.add(category);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		return categories;
 	}
 
 	@Override
 	public List<Category> findByCategory(String categoryName) {
 		List<Category> categories = new ArrayList<>();
 
-		String sql = "SELECT categoryId, categoryName, categoryBudget, categoryDate"
-				+ " FROM expCategoryTbl WHERE categoryName LIKE ? ";
+		String sql = "SELECT categoryId, categoryName, categoryBudget,"
+				+ " categoryDate FROM expCategoryTbl WHERE categoryName LIKE ? ";
 
-		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
 
 			ps.setString(1, createSearchValue(categoryName));
 			
@@ -117,7 +180,7 @@ public class CategoryDaoImpl implements CategoryDao {
 						(results.getInt("categoryId")), 
 						results.getString("categoryName"),
 						results.getDouble("categoryBudget"),
-						results.getDate("categoryDate"));
+						results.getDate("categoryDate").toLocalDate());
 				categories.add(category);
 			}
 

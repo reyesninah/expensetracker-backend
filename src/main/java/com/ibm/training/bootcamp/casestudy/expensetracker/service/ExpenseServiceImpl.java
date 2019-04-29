@@ -5,11 +5,16 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import com.ibm.training.bootcamp.casestudy.expensetracker.dao.ExpenseDao;
+import com.ibm.training.bootcamp.casestudy.expensetracker.dao.ExpenseDaoImpl;
 import com.ibm.training.bootcamp.casestudy.expensetracker.domain.Expense;
 
 public class ExpenseServiceImpl implements ExpenseService {
 	
 	ExpenseDao expenseDao;
+	
+	public ExpenseServiceImpl() {
+		this.expenseDao = ExpenseDaoImpl.getInstance();
+	}
 
 	@Override
 	public List<Expense> findAllExpenses() {

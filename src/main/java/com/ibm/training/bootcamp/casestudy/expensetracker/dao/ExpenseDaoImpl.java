@@ -42,29 +42,29 @@ public class ExpenseDaoImpl implements ExpenseDao{
 		dataSource.setUser("username");
 		dataSource.setPassword("password");
 		
-		createExpItemTbl();
-		insertInitCategory();
+//		createExpItemTbl();
+//		insertInitCategory();
 	}
 
 
 	private void createExpItemTbl() {
-		String createSql = "CREATE TABLE expItemTbl " + 
-				"(expenseId INTEGER IDENTITY PRIMARY KEY, " + 
-				" expenseName VARCHAR(255), "+ 
-				" expenseAmount DOUBLE," +
-				" expenseDate DATE," + 
-				" categoryName INTEGER, FOREIGN KEY(categoryName)"
-				+ "REFERENCES expCategoryTbl(categoryName)";
-		System.out.println("creating table");
-		try (Connection conn = dataSource.getConnection(); 
-				Statement stmt = conn.createStatement()) {
-
-			stmt.executeUpdate(createSql);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+//		String createSql = "CREATE TABLE expItemTbl " + 
+//				"(expenseId INTEGER IDENTITY PRIMARY KEY, " + 
+//				" expenseName VARCHAR(255), "+ 
+//				" expenseAmount DOUBLE," +
+//				" expenseDate DATE," + 
+//				" categoryName INTEGER, FOREIGN KEY(categoryName)"
+//				+ "REFERENCES expCategoryTbl(categoryName)";
+//		System.out.println("creating table");
+//		try (Connection conn = dataSource.getConnection(); 
+//				Statement stmt = conn.createStatement()) {
+//
+//			stmt.executeUpdate(createSql);
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new RuntimeException(e);
+//		}
 		System.out.println("table created");
 	}
 	

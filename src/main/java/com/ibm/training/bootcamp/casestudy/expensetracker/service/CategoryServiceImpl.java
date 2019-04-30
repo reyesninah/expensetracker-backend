@@ -57,30 +57,25 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void upsert(Category category) {
-//		if(validate(category)) {
-//			if(category.getCategoryName() != null )
-////					&& category.getCategoryName()>=0) 
-//			{
-//				categoryDao.update(category);
-//				
-//			}else {
-//				categoryDao.add(category);
-//			}
-//		}else {
-//			throw new IllegalArgumentException("Fields cannot be blank");
-//		}
-		
-		categoryDao.add(category);
-		
-	}
+			if(category.getCategoryId() != null 
+					&& category.getCategoryId()>=0){
+				System.out.println("Service - updateupdate");
+				categoryDao.update(category);
+			}else {
+				System.out.println("Service - updateadd");
+				categoryDao.add(category);
+			}
+		}
+
 	
-	private boolean validate(Category category) {
-//		if(StringUtils.isAnyBlank(category.getCategoryName()) && 
-//				category.getCategoryBudget().isEmpty()) &&
-//				)
-		
-		return !StringUtils.isAnyBlank(category.getCategoryName());
-	}
+//	private boolean validate(Category category) {
+////		if(StringUtils.isAnyBlank(category.getCategoryName()) && 
+////				category.getCategoryBudget().isEmpty()) &&
+////				)
+//		System.out.println("inside validate");
+//		
+//		return !StringUtils.isAnyBlank(category.getCategoryName());
+//	}
 
 	@Override
 	public List<Category> findByMonth(String categoryDate) {

@@ -8,25 +8,26 @@ public class Expense {
 	private String expenseName;
 	private double expenseAmount;
 	private Date expenseDate;
-	String categoryName;
+	//String categoryName;
+	private Long categoryId;
 	
 	public Expense() {
 		
 	}
 	
 	public Expense(String expenseName,double expenseAmount,
-			Date expenseDate,String categoryName) {
+			Date expenseDate,Long categoryId) {
 		this(null, expenseName, expenseAmount, expenseDate,
-				categoryName);
+				categoryId);
 	}
 	
 	public Expense(Long expenseId, String expenseName, 
 			double expenseAmount, Date expenseDate,
-			String categoryName) {
+			Long categoryId) {
 		this.expenseName = expenseName;
 		this.expenseAmount = expenseAmount;
 		this.expenseDate = expenseDate;
-		this.categoryName = categoryName;
+		this.categoryId = categoryId;
 	}
 
 	public Long getExpenseId() {
@@ -61,12 +62,20 @@ public class Expense {
 		this.expenseDate = expenseDate;
 	}
 
-	public String getCategoryName() {
-		return categoryName;
+//	public String getCategoryName() {
+//		return categoryName;
+//	}
+//
+//	public void setCategoryName(String categoryName) {
+//		this.categoryName = categoryName;
+//	}
+	
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public void setCategoryName(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	

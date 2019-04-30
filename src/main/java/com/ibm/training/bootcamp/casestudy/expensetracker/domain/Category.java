@@ -8,20 +8,21 @@ public class Category {
 	Long categoryId;
 	private String categoryName;
 	private double categoryBudget = 1000;
-	private LocalDate categoryDate = LocalDate.now();
+	//private LocalDate categoryDate = LocalDate.now();
+	private Date categoryDate;
 	
 	public Category() {
 		
 	}
 	
 	public Category( String categoryName,
-			double categoryBudget, LocalDate categoryDate) {
+			double categoryBudget, Date categoryDate) {
 		this(null, categoryName, categoryBudget, categoryDate);
 	}
 
 	
 	public Category(Long categoryId, String categoryName,
-			double categoryBudget, LocalDate categoryDate) {
+			double categoryBudget, Date categoryDate) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryBudget = categoryBudget;
@@ -52,11 +53,11 @@ public class Category {
 		this.categoryBudget = categoryBudget;
 	}
 
-	public LocalDate getCategoryDate() {
+	public Date getCategoryDate() {
 		return categoryDate;
 	}
 
-	public void setCategoryDate(LocalDate categoryDate) {
+	public void setCategoryDate(Date categoryDate) {
 		this.categoryDate = categoryDate;
 	}
 

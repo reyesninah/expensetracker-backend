@@ -28,15 +28,16 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 	@Override
 	public void add(Expense expense) {
-		if (validate(expense)) {
-			expenseDao.add(expense);
-		} else {
-			throw new IllegalArgumentException("Fields cannot be blank");
-		}
+//		if (validate(expense)) {
+//			expenseDao.add(expense);
+//		} else {
+//			throw new IllegalArgumentException("Fields cannot be blank");
+//		}
+		expenseDao.add(expense);
 	}
 
-	private boolean validate(Expense expense) {
-		return !StringUtils.isBlank(expense.getCategoryName());
-	}
+//	private boolean validate(Expense expense) {
+//		return !StringUtils.isBlank(expense.getCategoryId());
+//	}
 
 }

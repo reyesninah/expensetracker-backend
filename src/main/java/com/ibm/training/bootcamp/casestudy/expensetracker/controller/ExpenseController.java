@@ -29,16 +29,17 @@ public class ExpenseController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Expense> getExpenses(
-			@QueryParam("categoryName") String categoryName){
+			@QueryParam("categoryId") String categoryName){
 		System.out.println("expcontroller");
 		try {
 			List<Expense> expenses;
 			
-			if(StringUtils.isBlank(categoryName)) {
-				expenses = expenseService.findAllExpenses();
-			}else {
-				expenses = expenseService.findByCategory(categoryName);
-			}
+//			if(StringUtils.isBlank(categoryName)) {
+//				expenses = expenseService.findAllExpenses();
+//			}else {
+//				expenses = expenseService.findByCategory(categoryName);
+//			}
+			expenses = expenseService.findAllExpenses();
 			
 			return expenses; 
 			
@@ -57,10 +58,11 @@ public class ExpenseController {
 		try {
 			expenseService.add(expense);
 			String result = "Expense added : "
+					+ expense.getExpenseId() + ""
 					+ expense.getExpenseName() + ""
 					+ expense.getExpenseAmount() + ""
 					+ expense.getExpenseDate() + ""
-					+ expense.getCategoryName();
+					+ expense.getCategoryId();
 			 return Response.status(200).entity(result).build();
 			
 		}catch(Exception e) {

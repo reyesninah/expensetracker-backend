@@ -83,8 +83,9 @@ public class CategoryController {
 	public Response updateCategoryBudget(Category category) {
 		
 		try {
-			
+			System.out.println("Controller - update");
 			categoryService.upsert(category);
+			System.out.println("Controller - update2");
 			String result = "Budget updated: "
 					+ category.getCategoryId() + " "
 					+ category.getCategoryName() + " "

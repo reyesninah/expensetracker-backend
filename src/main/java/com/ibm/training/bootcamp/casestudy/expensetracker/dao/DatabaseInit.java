@@ -11,6 +11,7 @@ public abstract class DatabaseInit {
 		dataSource.setDatabase("jdbc:hsqldb:hsql://localhost/exptrackerdb");
 		dataSource.setUser("SA");
 		dataSource.setPassword("");
+
 	}
 	
 }

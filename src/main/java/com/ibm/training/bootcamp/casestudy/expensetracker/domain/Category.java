@@ -1,5 +1,6 @@
 package com.ibm.training.bootcamp.casestudy.expensetracker.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -7,22 +8,37 @@ public class Category {
 	
 	Long categoryId;
 	private String categoryName;
-	private double categoryBudget = 1000;
+	private BigDecimal categoryBudget = new BigDecimal(1000);
 	//private LocalDate categoryDate = LocalDate.now();
-	private Date categoryDate;
+	//private java.sql.Date categoryDate;
+	private java.util.Date categoryDate;
 	
 	public Category() {
 		
 	}
 	
+//	public Category( String categoryName,
+//			BigDecimal categoryBudget, LocalDate categoryDate) {
+//		this(null, categoryName, categoryBudget, categoryDate);
+//	}
+//
+//	
+//	public Category(Long categoryId, String categoryName,
+//			BigDecimal categoryBudget, LocalDate categoryDate) {
+//		this.categoryId = categoryId;
+//		this.categoryName = categoryName;
+//		this.categoryBudget = categoryBudget;
+//		this.categoryDate = categoryDate;
+//	}
+	
 	public Category( String categoryName,
-			double categoryBudget, Date categoryDate) {
+			BigDecimal categoryBudget, java.sql.Date categoryDate) {
 		this(null, categoryName, categoryBudget, categoryDate);
 	}
 
 	
 	public Category(Long categoryId, String categoryName,
-			double categoryBudget, Date categoryDate) {
+			BigDecimal categoryBudget, java.sql.Date categoryDate) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryBudget = categoryBudget;
@@ -45,19 +61,35 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	public double getCategoryBudget() {
+	public BigDecimal getCategoryBudget() {
 		return categoryBudget;
 	}
 
-	public void setCategoryBudget(double categoryBudget) {
+	public void setCategoryBudget(BigDecimal categoryBudget) {
 		this.categoryBudget = categoryBudget;
 	}
 
-	public Date getCategoryDate() {
+//	public LocalDate getCategoryDate() {
+//		return categoryDate;
+//	}
+//
+//	public void setCategoryDate(LocalDate categoryDate) {
+//		this.categoryDate = categoryDate;
+//	}
+	
+//	public java.sql.Date getCategoryDate() {
+//		return categoryDate;
+//	}
+//
+//	public void setCategoryDate(java.sql.Date categoryDate) {
+//		this.categoryDate = categoryDate;
+//	}
+	
+	public java.util.Date getCategoryDate() {
 		return categoryDate;
 	}
 
-	public void setCategoryDate(Date categoryDate) {
+	public void setCategoryDate(java.util.Date categoryDate) {
 		this.categoryDate = categoryDate;
 	}
 

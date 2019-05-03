@@ -1,28 +1,28 @@
 package com.ibm.training.bootcamp.casestudy.expensetracker.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Expense {
 	
 	Long expenseId;
 	private String expenseName;
-	private double expenseAmount;
-	private Date expenseDate;
-	//String categoryName;
-	private Long categoryId;
+	private BigDecimal expenseAmount = new BigDecimal(1000);
+	private java.util.Date expenseDate;
+	Long categoryId;
 	
 	public Expense() {
 		
 	}
 	
-	public Expense(String expenseName,double expenseAmount,
+	public Expense(String expenseName,BigDecimal expenseAmount,
 			Date expenseDate,Long categoryId) {
 		this(null, expenseName, expenseAmount, expenseDate,
 				categoryId);
 	}
 	
 	public Expense(Long expenseId, String expenseName, 
-			double expenseAmount, Date expenseDate,
+			BigDecimal expenseAmount, Date expenseDate,
 			Long categoryId) {
 		this.expenseName = expenseName;
 		this.expenseAmount = expenseAmount;
@@ -46,11 +46,11 @@ public class Expense {
 		this.expenseName = expenseName;
 	}
 
-	public double getExpenseAmount() {
+	public BigDecimal getExpenseAmount() {
 		return expenseAmount;
 	}
 
-	public void setExpenseAmount(double expenseAmount) {
+	public void setExpenseAmount(BigDecimal expenseAmount) {
 		this.expenseAmount = expenseAmount;
 	}
 

@@ -1,4 +1,5 @@
 package com.ibm.training.bootcamp.casestudy.expensetracker.controller;
+
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -54,9 +55,10 @@ public class ExpenseController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addExpense(Expense expense) {
-		
+		System.out.println("controller - adding expense");
 		try {
 			expenseService.add(expense);
+			System.out.println("controller - adding expense2");
 			String result = "Expense added : "
 					+ expense.getExpenseId() + ""
 					+ expense.getExpenseName() + ""

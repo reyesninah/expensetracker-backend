@@ -36,20 +36,11 @@ public class CategoryDaoImpl extends DatabaseInit implements CategoryDao {
 		init();
 	}
 
-//
 ////		date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//	}
-
-////	private static java.sql.Date convertDate(){
-////		java.util.Date utilDate = new java.util.Date();
-////		return new java.sql.Date(utilDate.getDate());
-////	}
 //	constructor ng util date 
 //	constructor ng sql date = util date .getTime()
 //	java.util.Date utilDate = new java.util.Date();
 //	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-	
-	
 	
 	@Override
 	public void add(Category category) {
@@ -67,12 +58,8 @@ public class CategoryDaoImpl extends DatabaseInit implements CategoryDao {
 			ps.setObject(3, category.getCategoryDate().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate());
 			ps.setObject(3, category.getCategoryDate());
-			
-			
-//			System.out.println(category.getCategoryName());
-//			System.out.println(category.getCategoryBudget());
-//			System.out.println(category.getCategoryDate());
 			ps.executeUpdate();
+			
 			System.out.println(category.getCategoryName()+ " inside add method2");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,9 +88,6 @@ public class CategoryDaoImpl extends DatabaseInit implements CategoryDao {
 						results.getString("categoryName"),
 						results.getBigDecimal("categoryBudget"),
 						results.getDate("categoryDate"));
-						//.toLocalDate());
-						
-						//results.getDate("categoryDate"));
 				categories.add(category);
 			}
 
@@ -146,40 +130,6 @@ public class CategoryDaoImpl extends DatabaseInit implements CategoryDao {
 
 		return categories;
 	}
-	
-//	@Override
-//	public List<Category> findByMonth(Date categoryDate) {
-//
-//		List<Category> categories = new ArrayList<>();
-//		
-//		String sql = "SELECT categoryName, categoryBudget," 
-//				+ " categoryDate FROM expCategoryTbl" 
-//				+ " WHERE DATEPART(mm, date) = ? AND DATEPART(yy, date)= ?";
-//
-//		try (Connection conn = dataSource.getConnection(); 
-//			PreparedStatement ps = conn.prepareStatement(sql)) {
-//
-//			ps.setDate(1, createSearchValue(categoryDate));
-//			
-//			ResultSet results = ps.executeQuery();
-//			
-//			while(results.next()) {
-//				Category category = new Category(Long.valueOf
-//						(results.getInt("categoryId")), 
-//						results.getString("categoryName"),
-//						results.getDouble("CategoryBudget"),
-//						results.getDate("categoryDate"));
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			throw new RuntimeException(e);
-//		}
-//
-//
-//		return categories;
-//	}
-
 
 	private String createSearchValue(String string) {
 		String value;
@@ -216,7 +166,40 @@ public class CategoryDaoImpl extends DatabaseInit implements CategoryDao {
 	}
 
 	@Override
+	public List<Category> findByMonthYear(Date categoryDate) {
+		
+		List<Category> categories = new ArrayList<>();
+		
+		String sql = "SELECT * FROM CATEGORYTBL WHERE MONTH(CATEGORYDATE) = ?" + 
+				"AND YEAR(CATEGORYDATE)= ?";
+
+		try (Connection conn = dataSource.getConnection(); 
+			PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setDate(1, categoryDate);
+
+			ResultSet results = ps.executeQuery();
+
+			while (results.next()) {
+				Category category = new Category(Long.valueOf
+						(results.getInt("categoryId")),
+						results.getString("categoryName"), 
+						results.getBigDecimal("CategoryBudget"),
+						results.getDate("categoryDate"));
+				categories.add(category);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		return categories;
+	}
+
+	@Override
 	public List<Category> findByMonth(Date categoryDate) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

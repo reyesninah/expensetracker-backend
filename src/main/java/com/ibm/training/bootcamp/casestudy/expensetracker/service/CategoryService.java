@@ -13,10 +13,10 @@ public interface CategoryService {
 
 	public void upsert(Category category);
 
-	public List<Category> findByMonth(String categoryDate);
-
 	public List<Category> findByMonth(Date categoryDate);
 
 	public List<Category> findByCategory(String categoryName);
+
+	public List<Category> findByMonthYear(java.util.Date categoryDate);
 
 }

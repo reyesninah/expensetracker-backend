@@ -1,5 +1,6 @@
 package com.ibm.training.bootcamp.casestudy.expensetracker.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -7,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
@@ -32,9 +34,8 @@ public class CategoryController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Category> getCategories(
-			@QueryParam("categoryName") String categoryName
-//			@QueryParam("categoryDate") String categoryDate){
-			){
+			@QueryParam("categoryName") String categoryName,
+			@QueryParam("categoryDate") Date categoryDate){
 		
 		try {
 		
@@ -42,12 +43,12 @@ public class CategoryController {
 			
 			if(StringUtils.isAllBlank(categoryName)) {
 				categories = categoryService.findAllCategory();
-			}else{
+			}else if (StringUtils.isNotBlank(categoryName)){
 				categories = categoryService.findByCategory(categoryName);
 			}
-//			else {
-//				categories = categoryService.findByMonth(categoryDate);
-//			}
+			else {
+				categories = categoryService.findByMonthYear(categoryDate);
+			}
 		
 			return categories;
 			
@@ -56,6 +57,22 @@ public class CategoryController {
 		}
 		
 	}
+	
+//	@GET
+//	@Path("categoryDate")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Category getCategoryByMonthYear(
+//			@PathParam("categoryDate") Date categoryDate) {
+//
+//		try {
+//			java.util.Date givMonthYear = categoryDate;
+//			Category category = categorySevice.find(givMonthYear);
+//			return category;
+//		} catch (Exception e) {
+//			throw new WebApplicationException(e);
+//		}
+//	}
+
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

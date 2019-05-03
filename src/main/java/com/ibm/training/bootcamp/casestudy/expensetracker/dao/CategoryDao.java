@@ -17,4 +17,6 @@ public interface CategoryDao {
 
 	public List<Category> findByCategory(String categoryName);
 
+	List<Category> findByMonthYear(Date categoryDate);
+
 }

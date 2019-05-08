@@ -43,13 +43,14 @@ public class CategoryController {
 			
 			if(StringUtils.isAllBlank(categoryName)) {
 				categories = categoryService.findAllCategory();
-			}else if (StringUtils.isNotBlank(categoryName)){
+			}else
+				//(StringUtils.isNotBlank(categoryName)){
 				categories = categoryService.findByCategory(categoryName);
-			}
-			else {
-				categories = categoryService.findByMonthYear(categoryDate);
-			}
-		
+			//}
+//			else {
+//				categories = categoryService.findByMonthYear(categoryName, categoryName, categoryDate);
+//			}
+//		
 			return categories;
 			
 		}catch(Exception e) {
@@ -96,22 +97,19 @@ public class CategoryController {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateCategoryBudget(Category category) {
-		
-		try {
-			System.out.println("Controller - update");
-			categoryService.upsert(category);
-			System.out.println("Controller - update2");
-			String result = "Budget updated: "
-					+ category.getCategoryId() + " "
-					+ category.getCategoryName() + " "
-					+ category.getCategoryBudget() + " "
-					+ category.getCategoryDate();
-			
+	@Path("{categoryId}") 
+	public Response updateCategoryBudget(
+			@PathParam("categoryId") Long categoryId,
+			Category category) {
+		System.out.println("Controller update - start");
+		try {			
+			category.setCategoryId(categoryId);
+			categoryService.update(category); 
+			String result = "Budget updatedxxxxx";
 			return Response.status(200).entity(result).build();
 			
 		}catch(Exception e) {
+			System.out.println("Error: controller update2");
 			throw new WebApplicationException(e);
 		}
 	}

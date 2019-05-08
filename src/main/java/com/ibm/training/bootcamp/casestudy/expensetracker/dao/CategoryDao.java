@@ -19,4 +19,8 @@ public interface CategoryDao {
 
 	List<Category> findByMonthYear(Date categoryDate);
 
+	List<Category> findByMonthYear(String categoryYear, String categoryMonth, Date categoryDate);
+
+	public void update(Long categoryId);
+
 }

@@ -17,6 +17,14 @@ public interface CategoryService {
 
 	public List<Category> findByCategory(String categoryName);
 
-	public List<Category> findByMonthYear(java.util.Date categoryDate);
+	//public List<Category> findByMonthYear(java.util.Date categoryDate);
+
+	public List<Category> findByMonthYear(String categoryYear, String categoryMonth);
+	
+	public List<Category> findByMonthYear(String categoryYear, String categoryMonth, java.util.Date categoryDate);
+
+	public void update(Category category);
+	
+	public void update (long categoryId);
 
 }

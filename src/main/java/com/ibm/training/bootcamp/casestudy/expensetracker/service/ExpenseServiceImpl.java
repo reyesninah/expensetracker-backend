@@ -22,11 +22,6 @@ public class ExpenseServiceImpl implements ExpenseService {
 	}
 
 	@Override
-	public List<Expense> findByCategory(String categoryName) {
-		return expenseDao.findByCategory(categoryName);
-	}
-
-	@Override
 	public void add(Expense expense) {
 //		if (validate(expense)) {
 //			expenseDao.add(expense);

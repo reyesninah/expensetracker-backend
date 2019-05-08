@@ -30,7 +30,7 @@ public class ExpenseController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Expense> getExpenses(
-			@QueryParam("categoryId") String categoryName){
+			@QueryParam("categoryName") String categoryName){
 		System.out.println("expcontroller");
 		try {
 			List<Expense> expenses;
@@ -65,9 +65,10 @@ public class ExpenseController {
 					+ expense.getExpenseAmount() + ""
 					+ expense.getExpenseDate() + ""
 					+ expense.getCategoryId();
-			 return Response.status(200).entity(result).build();
+			 return Response.status(201).entity(result).build();
 			
 		}catch(Exception e) {
+			System.out.println("controller - error adding expense");
 			throw new WebApplicationException(e);
 			
 		}

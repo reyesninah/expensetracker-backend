@@ -8,7 +8,8 @@ public class Category {
 	
 	Long categoryId;
 	private String categoryName;
-	private BigDecimal categoryBudget = new BigDecimal(1000);
+	//private BigDecimal categoryBudget = new BigDecimal(1000);
+	private BigDecimal categoryBudget;
 	//private LocalDate categoryDate = LocalDate.now();
 	//private java.sql.Date categoryDate;
 	private java.util.Date categoryDate;

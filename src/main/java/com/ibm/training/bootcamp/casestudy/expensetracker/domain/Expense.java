@@ -16,18 +16,20 @@ public class Expense {
 	}
 	
 	public Expense(String expenseName,BigDecimal expenseAmount,
-			Date expenseDate,Long categoryId) {
+			java.util.Date expenseDate,Long categoryId) {
 		this(null, expenseName, expenseAmount, expenseDate,
 				categoryId);
 	}
 	
 	public Expense(Long expenseId, String expenseName, 
-			BigDecimal expenseAmount, Date expenseDate,
+			BigDecimal expenseAmount, java.util.Date expenseDate,
 			Long categoryId) {
+		this.expenseId = expenseId;
+		this.categoryId = categoryId;
 		this.expenseName = expenseName;
 		this.expenseAmount = expenseAmount;
 		this.expenseDate = expenseDate;
-		this.categoryId = categoryId;
+		
 	}
 
 	public Long getExpenseId() {
@@ -74,7 +76,7 @@ public class Expense {
 		return categoryId;
 	}
 
-	public void setCategoryName(Long categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
 

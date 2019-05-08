@@ -10,6 +10,4 @@ public interface ExpenseService {
 
 	void add(Expense expense);
 
-	List<Expense> findByCategory(String categoryName);
-
 }

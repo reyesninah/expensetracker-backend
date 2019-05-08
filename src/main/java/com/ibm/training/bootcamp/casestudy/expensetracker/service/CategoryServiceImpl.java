@@ -21,26 +21,6 @@ public class CategoryServiceImpl implements CategoryService {
 	public void add(Category category) {
 		System.out.println("inside add");
 		System.out.println(category.getCategoryName());
-//		if(validate(category) == false) {
-//			System.out.println("try");
-//			categoryDao.add(category);
-//			
-//		} else {
-//			System.out.println("ayaw add");
-//			throw new IllegalArgumentException 
-//			("Field CategoryName cannot be blank");
-//					
-//		}
-//		try {
-//			if(categoryName)
-//			categoryDao.add(category);
-//			
-//		}catch(Exception e) {
-//			throw new IllegalArgumentException ("Field CategoryName cannot be blank");
-//		}
-//		if(category.getCategoryId() != null && category.getCategoryId() >= 0) {
-//			categoryDao.update(category);
-//		} else {
 			categoryDao.add(category);
 		//}
 	}
@@ -56,14 +36,16 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public void upsert(Category category) {
+	public void update(Category category) {
+		System.out.println(category.getCategoryId());
 			if(category.getCategoryId() != null 
 					&& category.getCategoryId()>=0){
 				System.out.println("Service - updateupdate");
 				categoryDao.update(category);
 			}else {
 				System.out.println("Service - updateadd");
-				categoryDao.add(category);
+				//categoryDao.add(category);
+				System.out.println("error upsert ");
 			}
 		}
 
@@ -77,14 +59,40 @@ public class CategoryServiceImpl implements CategoryService {
 //		return !StringUtils.isAnyBlank(category.getCategoryName());
 //	}
 
-	@Override
-	public List<Category> findByMonth(String categoryDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Category> findByCategory(String categoryName) {
 		return categoryDao.findByCategory(categoryName);
 	}
+
+//	@Override
+//	public List<Category> findByMonthYear(java.util.Date categoryDate) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+	@Override
+	public List<Category> findByMonthYear(String categoryYear, String categoryMonth) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Category> findByMonthYear(String categoryYear, String categoryMonth,java.util.Date categoryDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void upsert(Category category) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(long categoryId) {
+		categoryDao.update(categoryId);
+		
+	}
+
 }

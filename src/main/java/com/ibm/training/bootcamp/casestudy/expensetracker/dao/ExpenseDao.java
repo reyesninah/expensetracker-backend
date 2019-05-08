@@ -10,6 +10,4 @@ public interface ExpenseDao {
 
 	public List<Expense> findAllExpenses();
 
-	public List<Expense> findByCategory(String categoryName);
-
 }
